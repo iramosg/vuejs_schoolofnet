@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <title>curso_vuejs_2</title>
+</head>
+<body>
+  <div id="app" class="container">
+    <div class="row">
+      <h3>Campeonato Brasileiro - Série A 2018</h3>
+      <hr>
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th></th>
+            <th>Time</th>
+            <th>Pontos</th>
+            <th>GM</th>
+            <th>GS</th>
+            <th>Saldo</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="time in times">
+            <td><img :src="time.escudo" :alt="time.nome" width="30"></td>
+            <td>
+              <strong>{{ time.nome }}</strong>
+            </td>
+            <td>{{ time.pontos }}</td>
+            <td>{{ time.gm }}</td>
+            <td>{{ time.gs }}</td>
+            <td>Saldo</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <div class="row text-center">
+      <form class="form-inline">
+
+        <div class="form-group">
+          <input type="text" class="form-control" v-model="novoJogo.casa.gols">
+          <label for="" class="control-label">
+            {{novoJogo.casa.time.nome}}
+            <img :src="novoJogo.casa.time.escudo" alt="" width="30">
+          </label>
+        </div>
+        <span>X</span>
+        <div class="form-group">
+          <label class="control-label">
+              {{novoJogo.fora.time.nome}}
+            <img :src="novoJogo.fora.time.escudo" alt="" width="30">
+          </label>
+          <input type="text" class="form-control" v-model="novoJogo.fora.gols">
+        </div>
+        <button type="button" class="btn btn-primary">Fim de Jogo</button>
+
+      </form>
+      <br><br>
+    </div>
+
+    <!-- <h1>Campeonato Brasileiro - Série A</h1>
+    <ul>
+      <li v-for="time in times">{{time.nome}} <img :src="time.escudo" alt=""></li>
+    </ul>
+    
+    <ul>
+      <li v-for="x in 100">{{ x }}</li>
+    </ul>
+    
+    <ul>
+      <li v-for="(time, index) in times">{{ index + 1 }} - {{time.nome}} <img :src="time.escudo" alt=""></li>
+    </ul>
+    
+    <ul>
+      <li v-for="(valor, chave, index) in alfabeto">
+        {{ index }} - {{ chave }}: {{ valor }}
+      </li>
+    </ul> -->
+    
+  </div>
+  <script src="/dist/build.js"></script>
+</body>
+</html>
