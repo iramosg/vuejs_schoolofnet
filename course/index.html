@@ -10,20 +10,59 @@
 </head>
 <body>
     <div class="container" id="hello">
-
+        
         <div class="row">
             <h1>{{ msg }}</h1>
             <input class="form-control" type="text" v-model="msg">
         </div>
-
+        
         <div class="row">
+            <h1>Minha Lista</h1>
             <ul>
                 <li v-for="people in peoples">
                     {{ people.name }}
                 </li>
             </ul>
+            <hr>
         </div>
+        
+        <div class="row">
+            <h1>Minha Lista</h1>
+            <input type="text" class="form-control" v-model="newElement" v-on:keyup.enter="addElement">
+            <br>
+            <ul>
+                <li v-for="element in elements">
+                    {{ element.title }}
+                    <a class="" href="#" v-on:click="removeElement($event, $index)" class="btn btn-primary">X</a>
+                </li>
+            </ul>
+            <hr>
+        </div>
+        
+        <div class="row">
+            <h1>v-on</h1>
+            <button v-on:click="myClick" class="btn btn-success">Click</button>
+            <button @click="myClick" class="btn btn-success">@Click</button>
+            <br><br>
+            <input type="text" class="form-control" @keyup="myKeyUp" placeholder="myKeyUp">
+            <br>
+            <input type="text" class="form-control" @keyup.enter="myKeyUp" placeholder="myKeyUp.enter">
+            <br>
+            <input type="text" class="form-control" @keyup.13="myKeyUp" placeholder="myKeyUp.13">
+        </div>
+        
+        <div class="row">
+            <h1>v-bind</h1>
+            <p v-bind:class="{ 'text-danger': 2 === 1, 'text-info': true }">text</p>
+            <p :class="{ 'text-danger': 2 === 1, 'text-info': true }">:text</p>
+            <p :style="{ fontSize:30 + 'px' }">Style</p>
+            <p :style="{ fontSize:30 + 'px' }">Style</p>
+            <p :style="[objectA, objectB]">Object A and B</p>
+            <p v-bind:="{id: 1 === 1, name: true}">bind attribute</p>
+        </div>
+        
     </div>
+    
     
     <script src="node_modules/vue/dist/vue.js"></script>
     <script src="node_modules/vue-resource/dist/vue-resource.js"></script>
