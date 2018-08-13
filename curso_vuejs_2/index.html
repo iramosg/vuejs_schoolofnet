@@ -7,78 +7,58 @@
 <body>
   <div id="app" class="container">
     <div class="row">
-      <h3>Campeonato Brasileiro - Série A 2018</h3>
-      <hr>
-      <table class="table table-striped">
-        <thead>
-          <tr>
-            <th></th>
-            <th>Time</th>
-            <th>Pontos</th>
-            <th>GM</th>
-            <th>GS</th>
-            <th>Saldo</th>
-          </tr>
-        </thead>
-        <tbody>
-          <tr v-for="time in times">
-            <td><img :src="time.escudo" :alt="time.nome" width="30"></td>
-            <td>
-              <strong>{{ time.nome }}</strong>
-            </td>
-            <td>{{ time.pontos }}</td>
-            <td>{{ time.gm }}</td>
-            <td>{{ time.gs }}</td>
-            <td>Saldo</td>
-          </tr>
-        </tbody>
-      </table>
-    </div>
-
-    <div class="row text-center">
-      <form class="form-inline">
-
-        <div class="form-group">
-          <input type="text" class="form-control" v-model="novoJogo.casa.gols">
-          <label for="" class="control-label">
-            {{novoJogo.casa.time.nome}}
-            <img :src="novoJogo.casa.time.escudo" alt="" width="30">
-          </label>
+      <h3>Campeonato Brasileiro - Série A - 2016</h3>
+      <a class="btn btn-primary" @click="createNovoJogo">Novo jogo</a>
+      <br/><br/>
+      <div v-if="view == 'tabela'">
+        <input type="text" class="form-control" v-model="filter">
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th v-for="coluna in colunas">
+                <a href="#" @click.prevent="sortBy(coluna)">{{coluna | ucwords}}</a>
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr v-for="time in timesFiltered">
+              <td><img :src="time.escudo" style="height: 30px; width: 30px;"></td>
+              <td>
+                <strong>{{time.nome}}</strong>
+              </td>
+              <td>{{time.pontos}}</td>
+              <td>{{time.gm}}</td>
+              <td>{{time.gs}}</td>
+              <td>{{time | saldo}}</td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+      <!--<div v-if="view == 'novojogo'">-->
+        <div v-else>
+          <form class="form-inline">
+            <div class="form-group">
+              <input type="text" class="form-control" v-model="novoJogo.casa.gols" @keyup.enter="fimJogo">
+              <label class="control-label">
+                {{novoJogo.casa.time.nome}}
+                <img :src="novoJogo.casa.time.escudo" style="height: 30px; width: 30px;">
+              </label>
+            </div>
+            <span>X</span>
+            <div class="form-group">
+              <label class="control-label">
+                <img :src="novoJogo.fora.time.escudo" style="height: 30px; width: 30px;">
+                {{novoJogo.fora.time.nome}}
+              </label>
+              <input type="text" class="form-control" v-model="novoJogo.fora.gols">
+            </div>
+            <button type="button" class="btn btn-primary" @click="fimJogo">Fim de jogo</button>
+          </form>
         </div>
-        <span>X</span>
-        <div class="form-group">
-          <label class="control-label">
-              {{novoJogo.fora.time.nome}}
-            <img :src="novoJogo.fora.time.escudo" alt="" width="30">
-          </label>
-          <input type="text" class="form-control" v-model="novoJogo.fora.gols">
-        </div>
-        <button type="button" class="btn btn-primary">Fim de Jogo</button>
-
-      </form>
-      <br><br>
+      </div>
     </div>
-
-    <!-- <h1>Campeonato Brasileiro - Série A</h1>
-    <ul>
-      <li v-for="time in times">{{time.nome}} <img :src="time.escudo" alt=""></li>
-    </ul>
     
-    <ul>
-      <li v-for="x in 100">{{ x }}</li>
-    </ul>
-    
-    <ul>
-      <li v-for="(time, index) in times">{{ index + 1 }} - {{time.nome}} <img :src="time.escudo" alt=""></li>
-    </ul>
-    
-    <ul>
-      <li v-for="(valor, chave, index) in alfabeto">
-        {{ index }} - {{ chave }}: {{ valor }}
-      </li>
-    </ul> -->
-    
-  </div>
-  <script src="/dist/build.js"></script>
-</body>
-</html>
+    <script src="/dist/build.js"></script>
+  </body>
+  </html>
+  
